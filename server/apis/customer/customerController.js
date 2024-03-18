@@ -135,6 +135,52 @@ const customerSingle = (req,res)=>{
         })
     }
 }
+// const customerUpdate = async(req,res)=>{
+//     let validation = ""
+//     if(!req.body._id){
+//         validation += "_id is required"
+//     }
+//     if(!!validation){
+//         res.send({
+//             status:500,
+//             message:validation,
+//             success:true
+//         })
+//     }else{
+//          let User = await user.findOne({_id:req.body._id}).exec()
+//         if(!!User){
+//             res.send({
+//                 success:false,
+//                 status:500,
+//                 message:"Data doesnot exist"
+//             })
+//         }
+//         else{
+//             if(!!req.body.name)
+//             User.name = req.body.name
+//             if(!!req.body.email)
+//             User.email = req.body.email
+//             User.save()
+//             .then( async savedUser=>{
+//                 let Customer = await customer.findOne({_id:req.body._id}).exec()
+//                 if(!!req.body.name)
+//                 Customer.name = req.body.name
+//                 if(!!req.body.email)
+//                 Customer.email = req.body.email
+//                 if(!!req.body.address)
+//                 Customer.address = req.body.address
+//                 if(!!req.body.phoneNumber)
+//                 Customer.phoneNumber = req.body.phoneNumber
+//                 Customer.save()
+//                 .then((saved)=>{
+
+//                 })
+//             })
+//         }
+  
+
+//     }
+// }
 
 
 

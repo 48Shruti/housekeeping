@@ -205,105 +205,55 @@ const userSingle = (req,res)=>{
         })
     }
 }
-const userDelete = (req,res)=>{
-    let validation =""
-    if(!req.body._id)
-        validation ="_id is required"
-    if(!!validation){
-        res.send({
-            success:false,
-            status:500,
-            message:validation
-        })
-    }
-    else{
-        user.findOne({_id:req.body._id}).exec()
-        .then((userData)=>{
-            if(userData== null){
-                res.send({
-                    success:false,
-                    status:500,
-                    message:" User Data doesnot exists"
-                })
-            }
-            else{
-                userData.status = false
-                userData.save()
-                .then(()=>{
-                    res.send({
-                        success:true,
-                        status:200,
-                        message:"User data is deleted",
-                        data:_id
-                    })
-                })
-                .catch(err=>{
-                    res.send({
-                        success:false,
-                        status:500,
-                        message:err.message
-                    })
-                })
-            }
-        })
-        .catch(err=>{
-            res.send({
-                success:false,
-                status:500,
-                message:err.message
-            })
-        })
-    }
-}
-const userUpdate = (req,res)=>{ 
-    const validation = ""
-   if(!req.body._id)
-    validation = "Id is required"
-    if(!!validation){
-        res.send({
-            success:false,
-            status:500,
-            message:validation})
-    }
-    else{
-        user.findOne({_id:req.body._id}).exec()
-        .then((userData)=>{
-            if(userData == null)
-            {
-                res.send({success:false,
-                    status:500,
-                message:"Data doesnot exist"})
-            }
-            else{
-                if(!!req.body.name) 
-                userData.name = req.body.name
-                if(!!req.body.email)
-                userData.email = req.body.email
-                userData.save()
-                .then((savedUser)=>{
-                    res.send({
-                        success:true,
-                        status:200,
-                        message:"Data is saved",
-                        userData : savedUser
-                    })
-                })
-                .catch((err=>{
-                    res.send({
-                        success:false,
-                        status:500,
-                        message:err.message})
-                }))
-            }
-        })
-        .catch(err=>{
-            res.send({
-                success:false,
-                status:500,
-                message:err.message
-            })
-        })
+// const userUpdate = (req,res)=>{ 
+//     const validation = ""
+//    if(!req.body._id)
+//     validation = "Id is required"
+//     if(!!validation){
+//         res.send({
+//             success:false,
+//             status:500,
+//             message:validation})
+//     }
+//     else{
+//         user.findOne({_id:req.body._id}).exec()
+//         .then((userData)=>{
+//             if(userData == null)
+//             {
+//                 res.send({success:false,
+//                     status:500,
+//                 message:"Data doesnot exist"})
+//             }
+//             else{
+//                 if(!!req.body.name) 
+//                 userData.name = req.body.name
+//                 if(!!req.body.email)
+//                 userData.email = req.body.email
+//                 userData.save()
+//                 .then((savedUser)=>{
+//                     res.send({
+//                         success:true,
+//                         status:200,
+//                         message:"Data is saved",
+//                         userData : savedUser
+//                     })
+//                 })
+//                 .catch((err=>{
+//                     res.send({
+//                         success:false,
+//                         status:500,
+//                         message:err.message})
+//                 }))
+//             }
+//         })
+//         .catch(err=>{
+//             res.send({
+//                 success:false,
+//                 status:500,
+//                 message:err.message
+//             })
+//         })
         
-    }
-}
-module.exports = {login,userSingle,userDelete,userUpdate,changeStatus,changePassword}
+//     }
+// }
+module.exports = {login,userSingle,changeStatus,changePassword}
