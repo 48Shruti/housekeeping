@@ -29,7 +29,7 @@ router.post('/category/all',categoryController.categoryAll)
 router.post('/category/single',categoryController.categorySingle)
 
 //jwt
-router.use(require('../middleware/tokenChecker'))
+//router.use(require('../middleware/tokenChecker'))
 
 //change
 router.post('/changePassword',userController.changePassword)
@@ -55,6 +55,8 @@ router.post('/review/all',reviewController.reviewAll)
 router.post('/review/update',reviewUpload.single('image'),reviewController.reviewUpdate)
 router.post('/review/delete',reviewController.reviewDelete)
 
+//update
+router.post('/update',customerController.customerUpdate)
 
 router.all('*',(req,res)=>{
     res.send({

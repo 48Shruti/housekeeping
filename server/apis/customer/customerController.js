@@ -135,53 +135,85 @@ const customerSingle = (req,res)=>{
         })
     }
 }
-// const customerUpdate = async(req,res)=>{
-//     let validation = ""
-//     if(!req.body._id){
-//         validation += "_id is required"
-//     }
-//     if(!!validation){
-//         res.send({
-//             status:500,
-//             message:validation,
-//             success:true
-//         })
-//     }else{
-//          let User = await user.findOne({_id:req.body._id}).exec()
-//         if(!!User){
-//             res.send({
-//                 success:false,
-//                 status:500,
-//                 message:"Data doesnot exist"
-//             })
-//         }
-//         else{
-//             if(!!req.body.name)
-//             User.name = req.body.name
-//             if(!!req.body.email)
-//             User.email = req.body.email
-//             User.save()
-//             .then( async savedUser=>{
-//                 let Customer = await customer.findOne({_id:req.body._id}).exec()
-//                 if(!!req.body.name)
-//                 Customer.name = req.body.name
-//                 if(!!req.body.email)
-//                 Customer.email = req.body.email
-//                 if(!!req.body.address)
-//                 Customer.address = req.body.address
-//                 if(!!req.body.phoneNumber)
-//                 Customer.phoneNumber = req.body.phoneNumber
-//                 Customer.save()
-//                 .then((saved)=>{
+const customerUpdate = async(req,res)=>{
+    let validation = ""
+    if(!req.body._id)
+        validation += "_id is required" // which _id is used user or customer
+    if(!!validation){
+        res.send({
+            status:500,
+            message:validation,
+            success:false
+        })
+    }else{
+        await customer.findOne({_id:req.body._id}).exec()
+        .then((customerData)=>{
+            if(customerData == null)
+            {
+                res.send({success:false,
+                    status:500,
+                     message:"customer data doesnot exist"})
+            }
+        else{
+            if(!!req.body.name) 
+                customerData.name = req.body.name
+            if(!!req.body.email)
+                customerData.email = req.body.email
+            if(!!req.body.address)
+                customerData.address = req.body.address
+            if(!!req.body.phoneNumber)
+                customerData.phoneNumber = req.body.phoneNumber
+                customerData.save()
+            .then(async savedCustomer =>{
+                    res.send({
+                        success : true,
+                        status :200,
+                        message : "customer update successfully",
+                        customerData : savedCustomer
+               })
+                await user.findOne({_id:customerData.userId}).exec()
+                .then((userData)=>{
+                    if(userData == null){
+                        res.send({
+                            success : false,
+                            status: 500,
+                            message : validation
+                        })
+                    }
+                    else{
+                        if(!!req.body.name)
+                            userData.name = req.body.name
+                        if(!!req.body.email)
+                            userData.email = req.body.email
+                            userData.save()
+                    }
+                })
+                .catch(err=>{
+                    res.send({
+                        success:false,
+                        status:500,
+                        message:err.message
+                    })
+                })
+            })
+            .catch(err=>{
+                res.send({
+                    success:false,
+                    status:500,
+                    message:err.message
+                })
+            })
+            }
+         })
+            .catch(err=>{
+            res.send({
+                success:false,
+                status:500,
+                message:err.message
+            })
+            })
+    }
 
-//                 })
-//             })
-//         }
-  
+}
 
-//     }
-// }
-
-
-
-module.exports = {resgisterCustomer,customerAll,customerSingle}
+module.exports = {resgisterCustomer,customerAll,customerSingle,customerUpdate}

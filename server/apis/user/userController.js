@@ -89,7 +89,7 @@ const changeStatus = (req,res)=>{
     else{
         user.findOne({_id:req.body._id}).exec()
         .then(data=>{
-            if(data == null){
+            if(data == null ){
                 res.send({
                     success:false,
                     status:500,
@@ -117,7 +117,8 @@ const changeStatus = (req,res)=>{
             }
         })
     }
-}
+    }
+
 const changePassword =(req,res)=>{
     let validation = ""
     if(!req.body._id)
@@ -205,55 +206,5 @@ const userSingle = (req,res)=>{
         })
     }
 }
-// const userUpdate = (req,res)=>{ 
-//     const validation = ""
-//    if(!req.body._id)
-//     validation = "Id is required"
-//     if(!!validation){
-//         res.send({
-//             success:false,
-//             status:500,
-//             message:validation})
-//     }
-//     else{
-//         user.findOne({_id:req.body._id}).exec()
-//         .then((userData)=>{
-//             if(userData == null)
-//             {
-//                 res.send({success:false,
-//                     status:500,
-//                 message:"Data doesnot exist"})
-//             }
-//             else{
-//                 if(!!req.body.name) 
-//                 userData.name = req.body.name
-//                 if(!!req.body.email)
-//                 userData.email = req.body.email
-//                 userData.save()
-//                 .then((savedUser)=>{
-//                     res.send({
-//                         success:true,
-//                         status:200,
-//                         message:"Data is saved",
-//                         userData : savedUser
-//                     })
-//                 })
-//                 .catch((err=>{
-//                     res.send({
-//                         success:false,
-//                         status:500,
-//                         message:err.message})
-//                 }))
-//             }
-//         })
-//         .catch(err=>{
-//             res.send({
-//                 success:false,
-//                 status:500,
-//                 message:err.message
-//             })
-//         })
-        
-//     }
-// }
+
 module.exports = {login,userSingle,changeStatus,changePassword}

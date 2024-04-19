@@ -9,12 +9,16 @@ const userController = require('../apis/user/userController')
 //login
 router.get('/login',userController.login)
 
+
 //catergory without login
 router.post('/category/all',categoryController.categoryAll)
 router.post('/category/single',categoryController.categorySingle)
 
 //json web token
 //router.use(require('../middleware/tokenChecker'))
+
+//change status
+router.post("/changestatus",userController.changeStatus)
 
 // category 
 const categoryStorage = multer.diskStorage({destination:(req,filename,cb)=>{

@@ -38,6 +38,9 @@ router.post('/service/add',serviceController.serviceAdd)
 router.post('/service/update',serviceController.serviceUpdate)
 router.post('/service/delete',serviceController.serviceDelete)
 
+//update
+router.post('/update',vendorController.vendorUpdate)
+
 //dashboard
 router.get('/dashboard', dashboardController.dashboard)
 
